@@ -553,7 +553,7 @@ export default function getLPTheme(mode) {
               color: 'white',
             },
             '& .MuiInputBase-input': {
-              boxSizing: 'border-box',
+              // boxSizing: 'border-box',
               '&::placeholder': {
                 opacity: 0.7,
               },

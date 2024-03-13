@@ -117,7 +117,9 @@ function AppBar({mode, toggleColorMode, showCustomTheme, toggleCustomTheme}) {
             }
         };
         const { data } = await axios.post(`${import.meta.env.VITE_ENDPOINT}/api/chat`, {userId}, config);
-        if(!chats.find((c)=> c._id === data._id)) setChats([data, ...chats]);
+        if(!chats.find((c)=> c._id === data._id)){
+          setChats([data, ...chats]);
+        } 
         setSelectedChat(data);
         setLoadingChat(false);
         setOpenDrawer(false);
@@ -225,6 +227,7 @@ function AppBar({mode, toggleColorMode, showCustomTheme, toggleCustomTheme}) {
                   <Stack
                     direction='row'
                     alignSelf="center"
+                    alignItems='center'
                     spacing={1}
                     useFlexGap
                     sx={{ mt: 7, mb: 3}}

@@ -332,7 +332,6 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain, fetchMessages, childre
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: (theme) => theme.palette.grey[500],
                     }}
                     >
                     <CloseIcon />
@@ -341,80 +340,86 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain, fetchMessages, childre
             <Divider/>
             <DialogContent sx={{scrollbarWidth: 'none'}}>
                 <Stack spacing={2}>
-                    <Box component="img" alt={selectedChat.chatName} src={pic ? pic : selectedChat.chatPic} sx={{height: 'auto', maxHeight: 'calc(100vh - (100px + 150px))', width: '100%', maxWidth: '500px'}} />
+                    <Box component="img" alt={selectedChat.chatName} src={pic || selectedChat.chatPic} sx={{height: 'auto', maxHeight: 'calc(100vh - (100px + 150px))', width: '100%', maxWidth: '500px'}} />
                     <Stack
-                    direction='row'
-                    alignSelf="center"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ mt: 7, mb: 3, width: '100%'}}
+                        direction='row'
+                        alignSelf='center'
+                        alignItems="center"
+                        spacing={1}
+                        useFlexGap
+                        sx={{ mt: 7, mb: 3, width: '100%'}}
                     >
                         <TextField
-                        type='file'
-                        id="pic"
-                        name='pic'
-                        hiddenLabel
-                        fullWidth
-                        variant="outlined"
-                        aria-label="Upload New Group Image"
-                        placeholder="Upload New Group Image"
-                        inputProps={{
-                            accept: 'image/*'
-                        }}
-                        onChange={handlePic}
+                            type='file'
+                            id="pic"
+                            name='pic'
+                            hiddenLabel
+                            size='small'
+                            fullWidth
+                            variant="outlined"
+                            aria-label="Upload New Group Image"
+                            placeholder="Upload New Group Image"
+                            inputProps={{
+                                accept: 'image/*'
+                            }}
+                            onChange={handlePic}
                         />
                         <LoadingButton 
                             loading={loadingPic} 
                             variant='contained' 
                             onClick={handleSubmitPic}
                         >
-                        Save
+                            Save
                         </LoadingButton>
                     </Stack>
-                    <Typography variant='h4' sx={{fontFamily:'Work sans', textAlign:'center', whiteSpace: 'nowrap', overflow:'auto', scrollbarWidth: 'none'}}>{name ? name : selectedChat.chatName}</Typography>
+                    <Typography variant='h4' sx={{fontFamily:'Work sans', textAlign:'center', whiteSpace: 'nowrap', overflow:'auto', scrollbarWidth: 'none'}}>{name || selectedChat.chatName}</Typography>
                     <Stack
-                    direction='row'
-                    alignSelf="center"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ mt: 7, mb: 3, width: '100%'}}
+                        direction='row'
+                        alignSelf='center'
+                        alignItems="center"
+                        spacing={1}
+                        useFlexGap
+                        sx={{ mt: 7, mb: 3, width: '100%'}}
                     >
                         <TextField
-                        id="name"
-                        name='name'
-                        hiddenLabel
-                        fullWidth
-                        variant="outlined"
-                        aria-label="Enter user name"
-                        placeholder="New Name"
-                        value={name}
-                        onChange={handleName}
+                            id="name"
+                            name='name'
+                            hiddenLabel
+                            size='small'
+                            fullWidth
+                            variant="outlined"
+                            aria-label="Enter user name"
+                            placeholder="New Name"
+                            value={name}
+                            onChange={handleName}
                         />
                         <LoadingButton 
                             loading={loadingName} 
                             variant='contained' 
                             onClick={handleSubmitName}
                         >
-                        Save
+                            Save
                         </LoadingButton>
                     </Stack>
                     <Stack
-                    direction='row'
-                    alignSelf="center"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ mt: 7, mb: 3, width: '100%'}}
+                        direction='row'
+                        alignSelf='center'
+                        alignItems="center"
+                        spacing={1}
+                        useFlexGap
+                        sx={{ mt: 7, mb: 3, width: '100%'}}
                     >
                         <TextField
-                        id="desc"
-                        name='desc'
-                        hiddenLabel
-                        fullWidth
-                        variant="outlined"
-                        aria-label="Enter new group description"
-                        placeholder="Update Description"
-                        value={desc}
-                        onChange={handleDesc}
+                            id="desc"
+                            name='desc'
+                            hiddenLabel
+                            size='small'
+                            fullWidth
+                            variant="outlined"
+                            aria-label="Enter new group description"
+                            placeholder="Update Description"
+                            value={desc}
+                            onChange={handleDesc}
                         />
                         <LoadingButton 
                             loading={loadingDesc} 
@@ -427,6 +432,7 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain, fetchMessages, childre
                     <TextField 
                         id='addUsers'
                         hiddenLabel
+                        size='small'
                         fullWidth
                         variant='outlined'
                         aria-label='Add users'
@@ -461,10 +467,10 @@ const UpdateGroupChatModal = ({fetchAgain, setFetchAgain, fetchMessages, childre
                         onClose={handleCloseError}
                     >
                         <Alert
-                        onClose={handleCloseError}
-                        severity={error.type}
-                        variant='filled'
-                        sx={{ width: '100%' }}
+                            onClose={handleCloseError}
+                            severity={error.type}
+                            variant='filled'
+                            sx={{ width: '100%' }}
                         >
                         {error.msg}
                         </Alert>

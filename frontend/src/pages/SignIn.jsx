@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from './../context/ChatProvider'
-import { Link, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container, Snackbar, Alert } from '@mui/material';
+import { Link, Avatar, CssBaseline, TextField, FormControlLabel, Checkbox, Grid, Box, Typography, Container, Snackbar, Alert, InputAdornment, IconButton } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ToggleColorMode from './../components/main/ToggleColorMode'
 import Copyright from '../components/main/Copyright';
@@ -13,6 +14,7 @@ import axios from 'axios';
 const SignIn = () => {
   const {mode, toggleColorMode} = ChatState();
   const defaultTheme = createTheme({ palette: { mode } });
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState({
@@ -30,6 +32,11 @@ const SignIn = () => {
       status: false,
     })
   };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -113,14 +120,27 @@ const SignIn = () => {
               autoFocus
             />
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

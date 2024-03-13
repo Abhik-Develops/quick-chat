@@ -181,7 +181,6 @@ const EditProfileModal = ({children}) => {
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: (theme) => theme.palette.grey[500],
                     }}
                     >
                     <CloseIcon />
@@ -190,61 +189,65 @@ const EditProfileModal = ({children}) => {
             <Divider/>
             <DialogContent sx={{scrollbarWidth:'none'}}>
                 <Stack spacing={2}>
-                    <Typography variant='h4' sx={{fontFamily:'Work sans', textAlign:'center', whiteSpace: 'nowrap', overflow:'auto', scrollbarWidth: 'none'}}>{name ? name : user.name}</Typography>
+                    <Typography variant='h4' sx={{fontFamily:'Work sans', textAlign:'center', whiteSpace: 'nowrap', overflow:'auto', scrollbarWidth: 'none'}}>{name || user.name}</Typography>
                     <Stack
-                    direction='row'
-                    alignSelf="center"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ mt: 7, mb: 3, width: '100%'}}
+                        direction='row'
+                        alignSelf='center'
+                        alignItems="center"
+                        spacing={1}
+                        useFlexGap
+                        sx={{ mt: 7, mb: 3, width: '100%'}}
                     >
                         <TextField
-                        id="name"
-                        name='name'
-                        hiddenLabel
-                        fullWidth
-                        variant="outlined"
-                        aria-label="Enter user name"
-                        placeholder="New Name"
-                        value={name}
-                        onChange={handleName}
+                            id="name"
+                            name='name'
+                            hiddenLabel
+                            size='small'
+                            fullWidth
+                            variant="outlined"
+                            aria-label="Enter user name"
+                            placeholder="New Name"
+                            value={name}
+                            onChange={handleName}
                         />
                         <LoadingButton 
                             loading={loadingName} 
                             variant='contained' 
                             onClick={handleSubmitName}
                         >
-                        Save
+                            Save
                         </LoadingButton>
                     </Stack>
-                    <Box component="img" alt={user.name} src={pic ? pic : user.pic} sx={{height: 'auto', maxHeight: 'calc(100vh - (100px + 150px))', width: '100%', maxWidth: '500px', alignSelf: 'center'}} />
+                    <Box component="img" alt={user.name} src={pic || user.pic} sx={{height: 'auto', maxHeight: 'calc(100vh - (100px + 150px))', width: '100%', maxWidth: '500px', alignSelf: 'center'}} />
                     <Stack
-                    direction='row'
-                    alignSelf="center"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ mt: 7, mb: 3, width: '100%'}}
+                        direction='row'
+                        alignSelf='center'
+                        alignItems="center"
+                        spacing={1}
+                        useFlexGap
+                        sx={{ mt: 7, mb: 3, width: '100%'}}
                     >
                         <TextField
-                        type='file'
-                        id="pic"
-                        name='pic'
-                        hiddenLabel
-                        fullWidth
-                        variant="outlined"
-                        aria-label="Upload New Image"
-                        placeholder="Upload New Image"
-                        inputProps={{
-                            accept: 'image/*'
-                        }}
-                        onChange={handlePic}
+                            type='file'
+                            id="pic"
+                            name='pic'
+                            hiddenLabel
+                            size='small'
+                            fullWidth
+                            variant="outlined"
+                            aria-label="Upload New Image"
+                            placeholder="Upload New Image"
+                            inputProps={{
+                                accept: 'image/*'
+                            }}
+                            onChange={handlePic}
                         />
                         <LoadingButton 
                             loading={loadingPic} 
                             variant='contained' 
                             onClick={handleSubmitPic}
                         >
-                        Save
+                            Save
                         </LoadingButton>
                     </Stack>
                     <Snackbar 

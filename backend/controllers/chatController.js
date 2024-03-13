@@ -9,7 +9,7 @@ class ChatController{
             return res.status(400).send({message: "UserID param not sent with request"});
         }
 
-        var isChat = await ChatModel.find({
+        let isChat = await ChatModel.find({
             isGroupChat: false,
             $and: [
                 {users: {$elemMatch: {$eq: req.user._id}}},
@@ -24,7 +24,7 @@ class ChatController{
             res.send(isChat[0]);
         }
         else{
-            var chatData = {
+            let chatData = {
                 chatName: "sender",
                 isGroupChat: false,
                 users: [req.user._id, userId],
@@ -62,7 +62,7 @@ class ChatController{
         if(!req.body.users || !req.body.name){
             return res.status(400).send({message: "Please fill all the fields"});
         }
-        var users = JSON.parse(req.body.users);
+        let users = JSON.parse(req.body.users);
         if(users.length<2){
             return res.status(400).send({message: "More than 2 users are required to form a group chat"});
         }

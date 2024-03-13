@@ -59,9 +59,7 @@ export const formatTime = (utcTime) => {
         let amPm = istTime.getHours() >= 12 ? 'PM' : 'AM';
 
         // Construct the time string in 12-hour format
-        let timeString = `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${amPm}`;
-
-        return timeString;
+        return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${amPm}`;
     } 
     // If yesterday, display 'Yesterday'
     else if (istTime.getDate() === now.getDate() - 1) {

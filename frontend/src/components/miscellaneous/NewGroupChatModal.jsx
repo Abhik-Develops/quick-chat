@@ -148,6 +148,7 @@ const NewGroupChatModal = ({children}) => {
             <TextField
               id="chatName"
               hiddenLabel
+              size='small'
               fullWidth
               variant="outlined"
               aria-label="Select chat name"
@@ -160,6 +161,7 @@ const NewGroupChatModal = ({children}) => {
             <TextField 
               id='addUsers'
               hiddenLabel
+              size='small'
               fullWidth
               variant='outlined'
               aria-label='Add users'

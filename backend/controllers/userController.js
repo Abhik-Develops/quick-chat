@@ -1,21 +1,19 @@
 import UserModel from './../models/UserModel.js';
 import { generateToken, verifyToken } from '../config/token.js'
+import { validationResult } from 'express-validator'
 import asyncHandler from 'express-async-handler'
 import transporter from '../config/emailConfig.js';
 import dotenv from 'dotenv'
 dotenv.config({path: '../.env'});
 
 class UserController{
-    static registerUser = asyncHandler(async (req, res) =>{
-        const {name, email, password, confirmpassword, pic} = req.body;
-        if(!name || !email || !password || !confirmpassword){
+    static registerUser = asyncHandler(async (req, res) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
             res.status(400);
-            throw new Error("Please enter all the fields")
+            throw new Error(errors.array()[0].msg);
         }
-        if(password !== confirmpassword){
-            res.status(400);
-            throw new Error("Password and Confirm Password does not match")
-        }
+        const {name, email, password, pic} = req.body;
         const userExists = await UserModel.findOne({email});
         if(userExists){
             res.status(400);
@@ -33,6 +31,13 @@ class UserController{
                     html: `<h3>Click <a href=${link}>Here</a> to verify your email. This link is valid for 10 minutes.</h3>`, // html body
                 });
                 res.send({message: "Verification email sent. Please verify your email."});
+                setTimeout(async ()=>{
+                    try {
+                        await UserModel.findOneAndDelete({ _id: user._id, isVerified: false });
+                    } catch (error) {
+                        console.error('Error deleting unverified user:', error);
+                    }
+                }, 600000);
             } catch (error) {
                 res.status(400);
                 throw new Error(error.message);
@@ -65,11 +70,12 @@ class UserController{
         }
     })
     static authUser = asyncHandler(async (req, res) =>{
-        const {email, password} = req.body;
-        if(!email || !password){
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
             res.status(400);
-            throw new Error("Please enter all the fields")
+            throw new Error(errors.array()[0].msg);
         }
+        const {email, password} = req.body;
         const user = await UserModel.findOne({email});
         if(user && (await user.matchPassword(password))){
             if(user.isVerified === false){
@@ -105,7 +111,7 @@ class UserController{
             ]
         }:{};
         try {
-            const users = await UserModel.find(keyword).find({_id:{$ne: req.user._id}})
+            const users = await UserModel.find(keyword).find({_id:{$ne: req.user._id}, isVerified: true})
             res.send(users);   
         } catch (error) {
             res.status(400);
@@ -113,11 +119,12 @@ class UserController{
         }
     });
     static sendPasswordResetEmail = asyncHandler(async (req, res) => {
-        const {email} = req.body;
-        if(!email){
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
             res.status(400);
-            throw new Error("Please enter email");
+            throw new Error(errors.array()[0].msg);
         }
+        const {email} = req.body;
         const user = await UserModel.findOne({email:email});
         if(!user){
             res.status(401);
@@ -143,16 +150,14 @@ class UserController{
         }
     })
     static userPasswordReset = asyncHandler(async (req, res) => {
-        const {password, confirmpassword} = req.body;
-        if(!password){
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
             res.status(400);
-            throw new Error("Please enter password");
+            throw new Error(errors.array()[0].msg);
         }
-        if(password !== confirmpassword){
-            res.status(400);
-            throw new Error("Password and Confirm Password does not match")
-        }
+        const {password} = req.body;
         const {id, token} = req.params;
+
         if(!id || !token){
             res.status(400);
             throw new Error("Id or Token not found");
@@ -196,19 +201,12 @@ class UserController{
         })
     })
     static userPasswordChange = asyncHandler(async (req, res) => {
-        const {userId, password, confirmpassword} = req.body;
-        if(!userId){
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
             res.status(400);
-            throw new Error("User is not logged in");
+            throw new Error(errors.array()[0].msg);
         }
-        if(!password){
-            res.status(400);
-            throw new Error("Please enter all the fields");
-        }
-        if(password !== confirmpassword){
-            res.status(400);
-            throw new Error("Password and Confirm Password does not match")
-        }
+        const {userId, password} = req.body;
         const user = await UserModel.findByIdAndUpdate(userId, {password:password}, {new: true});
         if(!user){
             throw new Error("Can not update user password");

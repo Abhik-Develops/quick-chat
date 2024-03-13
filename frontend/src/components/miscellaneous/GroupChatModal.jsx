@@ -128,7 +128,6 @@ const GroupChatModal = ({fetchAgain, setFetchAgain, children}) => {
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: (theme) => theme.palette.grey[500],
                     }}
                     >
                     <CloseIcon />

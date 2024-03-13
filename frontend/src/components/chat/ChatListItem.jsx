@@ -11,7 +11,7 @@ const ChatListItem = ({chat, handleFunction, loggedUser, notificationCount}) => 
         <ChatProfileModal name={chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)} pic={chat.isGroupChat ? chat.chatPic : getSenderInfo(loggedUser, chat.users).pic} ><Avatar alt={!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName} src={!chat.isGroupChat ? getSenderInfo(loggedUser, chat.users).pic : chat.chatPic} sx={{mr:2, size:'small', cursor: 'pointer'}}/></ChatProfileModal>
         <Box onClick={()=>handleFunction(chat)} sx={{width: '100%', overflow:'hidden', flex: 1}}>
             <Typography sx={{fontSize: '20px', fontWeight: 'bold', width: '95%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-                {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
+                {chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}
             </Typography>
             <Typography sx={{fontSize: '15px', width: '95%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                 {chat.latestMessage ? `${chat.isGroupChat ? chat.latestMessage.sender._id==user._id ? 'You:' : chat.latestMessage.sender.name + ':' : ''} ${chat.latestMessage.content}` : "Start chatting"}
