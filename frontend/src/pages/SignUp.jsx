@@ -37,7 +37,7 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   }
   const handleClickShowConfirmPassword = () => {
-    setShowConfirmPassword(!showPassword);
+    setShowConfirmPassword(!showConfirmPassword);
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
