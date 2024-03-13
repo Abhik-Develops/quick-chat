@@ -141,7 +141,7 @@ class UserController{
                 from: process.env.EMAIL_FROM, // sender address
                 to: email, // list of receivers
                 subject: "Quick Chat - Password Reset Email", // Subject line
-                html: `<h3>Click <a href=${link}>Here</a> to reset your password</h3>`, // html body
+                html: `<h3>Click <a href=${link}>Here</a> to reset your password. This link is valid for 10 minutes.</h3>`, // html body
             });
             res.send({"message": "Password reset email sent successfully"});
         } catch (error) {
