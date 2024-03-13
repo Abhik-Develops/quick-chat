@@ -207,7 +207,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                         {
                             isTyping ? <Lottie options={defaultOptions} width={70} style={{marginBottom: 15, marginLeft: 0}}/> : <></>
                         }
-                            <TextField placeholder='Enter a message' onChange={typingHandler} value={newMessage} InputProps={{endAdornment: (
+                            <TextField size='small' placeholder='Enter a message' onChange={typingHandler} value={newMessage} InputProps={{endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton edge="end" onClick={sendMessage}>
                                         <SendIcon />
