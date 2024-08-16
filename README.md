@@ -1,6 +1,8 @@
 # quick-chat
 Quick Chat is a dynamic web-based messaging application built using the MERN stack, complemented by Socket.IO for real-time communication. Material-UI is used for the frontend to ensure a polished and intuitive user experience.
 ## Live Demo: https://quick-chat-kqjq.onrender.com
+- Email: guest@example.com
+- Password: 12345
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/b985c576-6e3d-4fbf-86ec-8a932ea8853e)
 ![image](https://github.com/user-attachments/assets/bb4dffc4-dede-4f7f-a63a-51353a531e86)
